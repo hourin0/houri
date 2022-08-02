@@ -8,13 +8,14 @@ Required dependency: gcc and ld for i686-elf, make are required for building the
 HouriOS should work with any virtual machines, however I have only tested it on QEMU.
 ### Building HouriClib (C lib used for developing the kernel)
 ```
-make clean houriclib
+make houriclib
 ```
 ### Building kernel
 ```
-make clean hourios
+make hourios
 ```
 ### Building ISO
 ```
-make clean iso
+make iso
 ```
+You can call `make iso` directly to build houriclib, hourios and iso. Sometimes you might need `clean`
