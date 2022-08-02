@@ -27,6 +27,7 @@ ssatori.o:
 	${CC} -c ssatori.c -o ssatori.o ${CFLAGS}
 
 houriclib:
+	mkdir -p ./lib
 	${CC} ${CFLAGS} -c -fPIC ./include/lowlevel.c -o ./include/lowlevel.o
 	${LD} -r ./include/lowlevel.o -o ./lib/liblowlevel.so
 	${CC} ${CFLAGS} -c -fPIC ./include/houric.c -o ./include/houric.o
