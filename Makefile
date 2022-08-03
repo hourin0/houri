@@ -18,7 +18,7 @@ PKG:=tar	#archive compression method
 iso-grub: houri #copy new kernel binary to isodir/ to build ISO
 	mkdir -p isodir/boot/grub
 	cp -f houri isodir/boot
-	cp grub.cfg isodir/boot/grub
+	cp -f grub.cfg isodir/boot/grub
 	grub-mkrescue ${GFLAGS} -o hourios.iso isodir
 
 houri: boot.o kernel.o ssatori.o libs #kernel binary
