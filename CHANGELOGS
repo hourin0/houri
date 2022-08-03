@@ -1,0 +1,23 @@
+August 3rd 2022:
+	- Moved include/lowlevel.c to include/lowlevel/lowlevel.c
+	- Moved include/houric.c to include/houric/*.c
+	- Kernel binary filename changed to houri from hourios
+	- Updated Makefile:
+		+ Now the recipe for building ISO is `iso-grub`
+		+ Recipe for building kernel binary changed to `houri`
+		+ More comments in the file to aid you if you want
+			customizaion.
+		+ Recipe `backup` creates "hourios-src-archive" now
+			instead of kernel.tar. The compression method
+			can now be easily changed by modifying PKG.
+		+ Added new recipe `bintar`: creates "hourios-bin-archive".
+			Makes an archive of binary and ISO files instead of
+			the whole directory. Compression method can also
+			be changed similar to `backup`
+		+ `clean` is splitted up:
+			clean-bin removes ISO and binary files
+			clean-libs removes compiled .so files
+			clean-obj removes .o files
+		+ New recipe `libs`: Links include/houric/*.o to 
+			lib/libhouric.so, links include/lowlevel/lowlevel.o
+			to lib/liblowlevel.so
