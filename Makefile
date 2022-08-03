@@ -53,7 +53,7 @@ clean-libs:
 	rm -f lib/*
 clean-obj:
 	rm -f include/lowlevel/*.o
-	rm -f include/lowlevel/*.o
+	rm -f include/houric/*.o
 	rm -f *.o
 clean: clean-bin clean-libs clean-obj
 
