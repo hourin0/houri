@@ -12,15 +12,13 @@
 
 U0 kernel_entry() {
 	init_vga(DEF_BG);
-	const UI32 waittimer=0xAFFFFFF;
-	putstr_attr("Welcome to HouriOS - A free (libre) and open source kernel for x86 systems\n",GREEN,DEF_BG);
+	putstr_attr("Welcome to HouriOS - A free (libre) and open source\
+ kernel for x86 systems\n",GREEN,DEF_BG);
 	putstr("\tLoading HouriOS kernel: ");
-	putstr_attr("OK",GREEN,DEF_BG);
-	putchar('\n');
+	putstr_attr("OK\n",GREEN,DEF_BG);
 	putstr("\tLoading SSatori: ");
-	sleep(waittimer*8);
-	putstr_attr("OK",GREEN,DEF_BG);
-	putchar('\n');
 	ssatori_entry(); //calls SSatori shell
-
+	putstr_attr("\n\nSSatori exitted, rebooting...\n ",RED,DEF_BG);
+	sleep(0xAFFFFFF*15);
+	reboot_routine();
 }
