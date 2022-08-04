@@ -1,7 +1,7 @@
 #These are cross-compilers I built. You should build them too if you haven't.
-CC:=gcc	#use i686-elf-gcc as default cc
-AS:=as	#use i686-elf-as as default as
-LD:=ld	#use i686-elf-ld as default ld
+CC:=gcc	#use gcc as default cc
+AS:=as	#use as as default as
+LD:=ld	#use ld as default ld
 
 OPT:=-O2	#C optimization method
 CFLAGS:=-m32 -std=gnu99 -ffreestanding ${OPT} --no-warning -I"./include"	#cc flags
