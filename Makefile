@@ -35,7 +35,7 @@ clean-bin:
 	rm -f houri
 clean-obj:
 	rm -f *.o
-clean: clean-bin clean-libs clean-obj
+clean: clean-bin clean-obj
 
 backup: #backup whole directory
 	rm -f hourios-src-archive.${PKG}
