@@ -16,9 +16,5 @@ U0 kernel_entry() {
  kernel for x86 systems\n",GREEN,DEF_BG);
 	putstr("\tLoading HouriOS kernel: ");
 	putstr_attr("OK\n",GREEN,DEF_BG);
-	putstr("\tLoading SSatori: ");
-	ssatori_entry(); //calls SSatori shell
-	putstr_attr("\n\nSSatori exitted, rebooting...\n ",RED,DEF_BG);
-	sleep(0xAFFFFFF*15);
-	reboot_routine();
+	//your code here
 }
