@@ -1,5 +1,6 @@
 lib/
 isodir/
 *.o
+*.swp
 include/lowlevel/*.o
 include/houric/*.o
