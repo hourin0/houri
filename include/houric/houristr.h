@@ -70,13 +70,13 @@ UI8* itoa(const UI32 i,const UI8 base) { //TODO: finish asap
 
 	}
 	else if (base==HEX) {
+
+	}
+	else {
 		#ifdef ERRNO_H
 		errno=ERR_UNK_BASE;
 		#endif
 		return 0;
-	}
-	else {
-		
 	}
 }
 UI32 atoi(const UI8* str,const UI8 base) { //TODO: hex
