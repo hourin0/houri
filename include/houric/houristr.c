@@ -71,7 +71,7 @@ UI32 atoi(const UI8* str,const UI8 base) { //TODO: hex
 	else if (base==OCT) {
 
 	}
-	else if (base==DEC) {
+	else if (base==DEC) { //TODO: does this works?
 		n=0;
 		for (i=0;str[i]>='0'&&str[i]<='9';++i)
 			n=10*n+(str[i]-'0');
