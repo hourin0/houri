@@ -1,0 +1,5 @@
+lib/
+isodir/
+*.o
+include/lowlevel/*.o
+include/houric/*.o
