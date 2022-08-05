@@ -10,6 +10,7 @@ UI32 strlen(const UI8* str);
 UI8* strcpy(UI8* dest,const UI8* src);
 UI8* strcat(UI8* dest,const UI8* src);
 UI8 strcmp(const UI8* str1,const UI8* str2);
+UI0  strrev(UI8* string);
 
 enum {
 	BIN=2,
@@ -17,7 +18,7 @@ enum {
 	DEC=10,
 	HEX=16
 };
-UI8* itoa(const UI32 i,const UI8 base);
+UI8 itoa(const UI32 value,UI8* string,const UI8 base);
 UI32 atoi(const UI8* str,const UI8 base);
 
 

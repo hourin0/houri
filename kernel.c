@@ -5,7 +5,6 @@
 #include <lowlevel/wait.h>
 #include <lowlevel/power.h>
 
-
 #include <houric/houricio.h>
 #include <houric/houristr.h>
 #include <houric/hourilib.h>
@@ -19,5 +18,5 @@ U0 kernel_entry() {
 	putstr("\tLoading SSatori: ");
 	ssatori_entry(); //calls SSatori shell
 	putstr_attr("\n\nFATAL: SSatori exitted\n ",RED,DEF_BG);
-	sleep(0xAFFFFFF*3);
+	sleep(0xAFFFFFF*10);
 }

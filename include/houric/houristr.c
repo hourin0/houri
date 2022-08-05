@@ -1,11 +1,6 @@
 #include <typedefs.h>
+#include <houric/houristr.h>
 //start of houristr
-enum {
-	BIN=2,
-	OCT=8,
-	DEC=10,
-	HEX=16
-};
 static const UI8* hex_digits="0123456789ABCDEF";
 static const UI8* dec_digits="0123456789";
 UI8 isalpha(UI8 ch) {
@@ -43,25 +38,40 @@ UI8* strcat(UI8* dest,const UI8* src) {
 	strcpy(dest+strlen(dest),src);
 	return dest;
 }
+UI8 strcmp(const UI8* str1,const UI8* str2) {
 
-UI8* itoa(const UI32 i,const UI8 base) { //TODO: finish asap
-	if (base==BIN) {
+}
+UI0 strrev(UI8* string) {
+	UI32 len=strlen(string);
+	UI32 i=0,k=len-1;
+	UI8 tmp;
+	for (;i<k;i++) {
+		tmp=string[i];
+		string[i]=string[k];
+		string[k]=tmp;
+		k--;
+	}
+}
 
+UI8 itoa(const UI32 value,UI8* string, const UI8 base) {
+	//libre code moment
+	UI32 sum=value;
+	UI32 i=0;
+	UI32 digit;
+	UI32 len=strlen(string);
+	if (len==0)
+		return -1;
+	while (sum&&(i<(len-1))) {
+		digit=sum%base;
+		if (digit<0xA)
+			string[i++]='0'+digit;
+		else
+			string[i++]='A'+digit-0xA;
+		sum/=base;
 	}
-	else if (base==OCT) {
-
-	}
-	else if (base==DEC) {
-
-	}
-	else if (base==HEX) {
-	}
-	else {
-		#ifdef ERRNO_H
-		errno=ERR_UNK_BASE;
-		#endif
-		return 0;	
-	}
+	string[i]='\0';
+	strrev(string);
+	return 0;
 }
 UI32 atoi(const UI8* str,const UI8 base) { //TODO: hex
 	int i,n;
@@ -72,9 +82,7 @@ UI32 atoi(const UI8* str,const UI8 base) { //TODO: hex
 
 	}
 	else if (base==DEC) { //TODO: does this works?
-		n=0;
-		for (i=0;str[i]>='0'&&str[i]<='9';++i)
-			n=10*n+(str[i]-'0');
+
 	}
 	else if (base==HEX) {
 
