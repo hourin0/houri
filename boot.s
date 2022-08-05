@@ -17,6 +17,7 @@ stackTop:
 _start:
 	mov $stackTop,%esp
 	call kernel_entry
+	call rsod_main
 	cli
 hltLoop:
 	hlt

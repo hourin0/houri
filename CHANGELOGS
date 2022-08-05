@@ -21,3 +21,9 @@ August 3rd 2022:
 		+ New recipe `libs`: Links include/houric/*.o to 
 			lib/libhouric.so, links include/lowlevel/lowlevel.o
 			to lib/liblowlevel.so
+
+August 5th 2022:
+	- Added ROSD (Red Screen of Death) Fatal Event Handler.
+		+ ROSD will be called at last, after kernel exits.
+	- Added 2 new functions to hourilib: rand() and srand().
+		+ These 2 will function similar to C rand() and srand().

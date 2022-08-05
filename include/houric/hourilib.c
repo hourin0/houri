@@ -12,9 +12,11 @@ U0 memset(U0* dest,I32 val,UI32 len) {
 		*ptr++=val;
 }
 
-/*	Line number index:
-	houricio: 4
-	hourilib: 68
-	houristr: 81
-	hourerr:
-*/
+static UI32 next=1;
+UI32 rand(U0) {
+	next=next*1103515245+12345;
+	return (next/65536)%32768;
+}
+UI0 srand(UI32 seed) {
+	next=seed;
+}

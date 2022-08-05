@@ -21,17 +21,17 @@ iso-grub: houri #copy new kernel binary to isodir/ to build ISO
 	cp -f grub.cfg isodir/boot/grub
 	grub-mkrescue ${GFLAGS} -o hourios.iso isodir
 
-houri: boot.o kernel.o ssatori.o libs #kernel binary
+houri: boot.o kernel.o ssatori.o rsod.o libs #kernel binary
 	${LD} ${LFLAGS} -T linker.ld *.o -o houri
 
 boot.o: #boot header
 	${AS} ${AFLAGS} boot.s -o boot.o
-
 kernel.o: #compiles kernel
 	${CC} -c kernel.c -o kernel.o ${CFLAGS}
-
 ssatori.o: #compiles SSatori (emergency built-in shell)
 	${CC} -c ssatori.c -o ssatori.o ${CFLAGS}
+rsod.o: #Red Screen of Death Fatal Event handler
+	${CC} -c rsod.c -o rsod.o ${CFLAGS}
 
 libs: houric.o lowlevel.o #compiles shared library. requires a i686-elf compiler and linker
 	mkdir -p ./lib
