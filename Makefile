@@ -11,13 +11,13 @@ houri: boot.o kernel.o ssatori.o rsod.o libs #kernel binary
 	${LD} ${LFLAGS} -T linker.ld *.o -o houri
 
 boot.o: #boot header
-	${AS} ${AFLAGS} boot.s -o boot.o
+	${AS} ${AFLAGS} boot/boot.${ASMEXT} -o boot.o
 kernel.o: #compiles kernel
-	${CC} -c kernel.c -o kernel.o ${CFLAGS}
+	${CC} -c kernel/kernel.c -o kernel.o ${CFLAGS}
 ssatori.o: #compiles SSatori (emergency built-in shell)
-	${CC} -c ssatori.c -o ssatori.o ${CFLAGS}
+	${CC} -c ssatori/ssatori.c -o ssatori.o ${CFLAGS}
 rsod.o: #Red Screen of Death Fatal Event handler
-	${CC} -c rsod.c -o rsod.o ${CFLAGS}
+	${CC} -c kernel/rsod.c -o rsod.o ${CFLAGS}
 
 libs: houric.o lowlevel.o #compiles shared library. requires a i686-elf compiler and linker
 	mkdir -p ./lib

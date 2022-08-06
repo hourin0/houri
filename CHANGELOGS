@@ -27,3 +27,12 @@ August 5th 2022:
 		+ ROSD will be called at last, after kernel exits.
 	- Added 2 new functions to hourilib: rand() and srand().
 		+ These 2 will function similar to C rand() and srand().
+
+August 6th 2022:
+	- kernel.c and rsod.c will be in kernel/
+	- ssatori.c will be in ssatori/
+	- Added conf.mk so you can modify the Makefile easier.
+	- All boot related codes are moved to boot/
+	- boot.asm is boot.s with NASM syntax.
+	- houriloader.asm is HouriOS' bootloader.
+	- itoa() is finally complete and working.
