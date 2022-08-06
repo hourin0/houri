@@ -5,6 +5,7 @@
 ;   Load kernel from disk
 ;   If I'm feeling happy I can probably make it dualboot
 
+[org 0x7C00]
 jmp $
 
 times 510-($-$$)
