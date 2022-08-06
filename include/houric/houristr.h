@@ -69,7 +69,8 @@ UI0 strrev(UI8* string) {
 	for (;i<k;i++) {
 		tmp=string[i];
 		string[i]=string[k];
-
+		k--;
+	}
 }
 UI8 itoa(const UI32 value,UI8* string, const UI8 base) {
 	//libre code moment
