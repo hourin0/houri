@@ -1,0 +1,11 @@
+lib/
+isodir/
+*.o
+*.swp
+include/*.o
+include/lowlevel/*.o
+include/houric/*.o
+houri
+hourios.iso
+hourios-src-archive.*
+hourios-bin-archive.*
