@@ -1,7 +1,7 @@
 #include "diskutils"
 #include <typedefs.h>
 
-int mount(part partition,const UI8* path) {
+UI32 mount(part partition,const UI8* path) {
 	if (!partition)
 		return -1;
 	if (!path) {
@@ -9,3 +9,9 @@ int mount(part partition,const UI8* path) {
 	}
 
 }
+
+UI32 unmount(part partition) {
+	if (!isPartMounted(partition))	// not mounted ?
+		return -1;
+}
+

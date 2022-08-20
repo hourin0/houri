@@ -12,8 +12,10 @@ typedef enum {
 	FAT32
 } Filesystem;
 
-int mkfs(part partition,Filesystem fs);
-int mount(part partition,const UI8* path);	// path ?
-int unmount(part partition);
-int fdisk(disk device);
+// TODO: which one ?
+UI8 isPartMounted(part partition);	// is partition mounted ?
+UI32 mkfs(part partition,Filesystem fs);
+UI32 mount(part partition,const UI8* path);	// path ?
+UI32 unmount(part partition);
+UI32 fdisk(disk device);
 
