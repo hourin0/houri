@@ -23,12 +23,6 @@ enum {	// OS ID
 };
 
 
-
-struct Inode {
-
-
-};
-
 struct Superblock {
 	UI32 totalInode;
 	UI32 totalBlock;
