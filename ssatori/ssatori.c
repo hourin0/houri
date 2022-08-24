@@ -5,12 +5,15 @@
 #include <lowlevel/wait.h>
 #include <lowlevel/power.h>
 
+#include <system/keyboard.h>
+
 #include <houric/houricio.h>
 #include <houric/houristr.h>
 #include <houric/hourilib.h>
 
 #define newline() putchar('\n');
 #define CurX() linechar
+
 static UI16 CurY() {	// TODO: does it work ?
 	UI32 tmp=cursor;
 	UI32 n=0;
@@ -42,11 +45,16 @@ UI0 SSPrompt(U0) {
 
 UI32 ssatori_entry() {
 	SSOnce();
+	UI8 chget;
+	UI8 hexstr[10]="00";
+	SSPrompt();
+	newline();
+	const oldCursor=cursor;
 	while (1) {
-		SSPrompt();
-		sleep(0xAFFFFFF);
-		// TODO: happy blinking cursor here
-
+		chget=in_byte(KBINPORT);
+		putstr("  Character you type from keyboard will be here: \0");
+		putchar_attr(keycodeToASCII(chget),GREEN,DEF_BG);
+		cursor=oldCursor;
 	}
 	return 0xFF;
 }

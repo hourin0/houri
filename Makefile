@@ -19,17 +19,20 @@ ssatori.o: #compiles SSatori (emergency built-in shell)
 rsod.o: #Red Screen of Death Fatal Event handler
 	${CC} -c kernel/rsod.c -o rsod.o ${CFLAGS}
 
-libs: houric.o lowlevel.o #compiles shared library. requires a i686-elf compiler and linker
+libs: houric.o lowlevel.o system.o
 	mkdir -p ./lib
-	${LD} -r include/lowlevel/lowlevel.o -o ./lib/liblowlevel.so
-	${LD} -r include/houric/*.o -o ./lib/libhouric.so
+	${LD} -r ${LOWLEVELPATH}/lowlevel.o -o ./lib/liblowlevel.so
+	${LD} -r ${HOURICPATH}/*.o -o ./lib/libhouric.so
+	${LD} -r ${SYSTEMPATH}/keyboard.o -o ./lib/libkeyboard.so
 
 lowlevel.o:
-	${CC} ${CFLAGS} -c -fPIC include/lowlevel/lowlevel.c -o include/lowlevel/lowlevel.o
+	${CC} ${CFLAGS} -c -fPIC ${LOWLEVELPATH}/lowlevel.c -o ${LOWLEVELPATH}/lowlevel.o
+system.o:
+	${CC} ${CFLAGS} -c -fPIC ${SYSTEMPATH}/keyboard.c -o ${SYSTEMPATH}/keyboard.o
 houric.o: #TODO: apply GNU Make file pattern to avoid yyp in Vim
-	${CC} ${CFLAGS} -c -fPIC include/houric/houricio.c -o include/houric/houricio.o
-	${CC} ${CFLAGS} -c -fPIC include/houric/houristr.c -o include/houric/houristr.o
-	${CC} ${CFLAGS} -c -fPIC include/houric/hourilib.c -o include/houric/hourilib.o
+	${CC} ${CFLAGS} -c -fPIC ${HOURICPATH}/houricio.c -o ${HOURICPATH}/houricio.o
+	${CC} ${CFLAGS} -c -fPIC ${HOURICPATH}/houristr.c -o ${HOURICPATH}/houristr.o
+	${CC} ${CFLAGS} -c -fPIC ${HOURICPATH}/hourilib.c -o ${HOURICPATH}/hourilib.o
 
 #for cleaning up. should be self-explainatory
 clean-bin:
@@ -38,8 +41,8 @@ clean-bin:
 clean-libs:
 	rm -f lib/*
 clean-obj:
-	rm -f include/lowlevel/*.o
-	rm -f include/houric/*.o
+	rm -f ${LOWLEVELPATH}/*.o
+	rm -f ${HOURICPATH}/*.o
 	rm -f *.o
 clean: clean-bin clean-libs clean-obj
 
