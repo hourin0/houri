@@ -27,9 +27,18 @@ static UI16 CurY() {	// TODO: does it work ?
 UI0 SSOnce(U0);
 UI0 SSPrompt(U0);
 UI0 SSScroll(U0);
+UI0 SSMenu(U0);
 UI8* SSGetHost(U0);
 UI8* SSGetString(U0);
 UI32 SSCheckCommand(const UI8* cmd);
+
+UI0 SSMenu(U0) {
+	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
+	newline();
+	MENUENTRY("C-m");
+	putstr(": Prints this menu");
+	newline();
+}
 
 UI0 SSOnce(U0) {
 	putstr_attr("OK\n",GREEN,DEF_BG);
@@ -54,6 +63,9 @@ UI32 ssatori_entry() {
 		getkey(&key);
 		putstr("  Character you type from keyboard will be here: \0");
 		putchar_attr(keypacketToASCII(&key),RED,DEF_BG);
+		if (isCtrl(key.mod)==1)
+			if (keycodeToASCII(key.keycode)=='m')
+				SSMenu();
 		cursor=oldCursor;
 	}
 	return 0xFF;

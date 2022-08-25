@@ -49,6 +49,12 @@
 #define KEY_LSHIFT 0x2A
 #define KEY_RSHIFT 0x36
 
+#define KEY_LMETA 0x38
+// E0 32 -> right meta
+
+#define KEY_LCTRL 0x1D
+// E0 1D -> right ctrl
+
 #define KBINPORT 0x60
 #define KBOUTPORT 0x64
 

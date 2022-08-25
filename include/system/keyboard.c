@@ -63,6 +63,7 @@ UI8 keycodeToASCII(const UI8 key) {	// convert key scancodes to ASCII (table 1)
 
 UI0 getkey(keypacket* key) {	// get keypacket from keyboard and perform modifier bits set/clear
 	key->keycode=in_byte(KBINPORT);
+
 	switch (key->keycode) {	// handle modifiers
 		case KEY_LSHIFT:
 			key->mod|=1<<7; break;
@@ -72,6 +73,11 @@ UI0 getkey(keypacket* key) {	// get keypacket from keyboard and perform modifier
 			key->mod&=~(1<<7); break;
 		case KEY_RSHIFT+0x80:
 			key->mod&=~(1<<0); break;
+		case KEY_LCTRL:
+			key->mod|=1<<6; break;
+		case KEY_LMETA:
+			key->mod|=1<<5; break;
+		// TODO: RCTRL and LMETA
 		default:
 			break;
 		// TODO: is Caps Lock necessary to waste 1 extra bit for ?
@@ -79,23 +85,19 @@ UI0 getkey(keypacket* key) {	// get keypacket from keyboard and perform modifier
 }
 
 UI8 isShift(const UI8 mod) {
-	if ((mod&(1<<0))||(mod&(1<<7)))
-		return 1;
-	return 0;
+	return ((mod&(1<<0))||(mod&(1<<7)));
 }
 
 UI8 isCtrl(const UI8 mod) {
-	if ((mod&(1<<1))||(mod&(1<<6)))
-		return 1;
-	return 0;
+	return ((mod&(1<<1))||(mod&(1<<6)));
 }
 
-UI8 isMeta(const UI8 mod) {
-
+UI8 isMeta(const UI8 mod) { 
+	return ((mod&(1<<2))||(mod&(1<<5)));
 }
 
-UI8 isSuper(const UI8 mod) {
-
+UI8 isSuper(const UI8 mod) { // NOTE: i didn't implemented Super key yet
+	return ((mod&(1<<3))||(mod&(1<<4)));
 }
 
 UI8 keypacketToASCII(const keypacket* key) {	// change keycode to ASCII then modify the ASCII based on UI8 mod
