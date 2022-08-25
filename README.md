@@ -6,16 +6,12 @@ Unless you are running a x86 system, you should follow the instructions at [OSDe
 ## Build Instruction
 Required dependency: gcc and ld for i686-elf, make are required for building the kernel. You might need GRUB if you want to build a bootable ISO.\
 HouriOS should work with any virtual machines, however I have only tested it on QEMU.
-### Building HouriClib (C lib used for developing the kernel)
-```
-make houriclib
-```
 ### Building kernel
 ```
 make hourios
 ```
-### Building ISO
+### Building ISO with GRUB
 ```
-make iso
+make grub-iso
 ```
-You can call `make iso` directly to build houriclib, hourios and iso. Sometimes you might need `clean`
+You can call `make grub-iso` directly to build houriclib, hourios and iso. Sometimes you might need `clean`
