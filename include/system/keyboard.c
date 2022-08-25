@@ -1,6 +1,7 @@
 #include <system/keyboard.h>
+#include <houric/houristr.h>
 
-UI8 keycodeToASCII(const UI8 key) {
+UI8 keycodeToASCII(const UI8 key) {	// convert key scancodes to ASCII (table 1)
 	switch (key) {
 		case KEY_A:
 			return 'a'; break;
@@ -58,4 +59,54 @@ UI8 keycodeToASCII(const UI8 key) {
 			return 0x00; break;
 
 	}
+}
+
+UI0 getkey(keypacket* key) {	// get keypacket from keyboard and perform modifier bits set/clear
+	key->keycode=in_byte(KBINPORT);
+	switch (key->keycode) {	// handle modifiers
+		case KEY_LSHIFT:
+			key->mod|=1<<7; break;
+		case KEY_RSHIFT:
+			key->mod|=1<<0; break;
+		case KEY_LSHIFT+0x80:
+			key->mod&=~(1<<7); break;
+		case KEY_RSHIFT+0x80:
+			key->mod&=~(1<<0); break;
+		default:
+			break;
+		// TODO: is Caps Lock necessary to waste 1 extra bit for ?
+	}
+}
+
+UI8 isShift(const UI8 mod) {
+	if ((mod&(1<<0))||(mod&(1<<7)))
+		return 1;
+	return 0;
+}
+
+UI8 isCtrl(const UI8 mod) {
+	if ((mod&(1<<1))||(mod&(1<<6)))
+		return 1;
+	return 0;
+}
+
+UI8 isMeta(const UI8 mod) {
+
+}
+
+UI8 isSuper(const UI8 mod) {
+
+}
+
+UI8 keypacketToASCII(const keypacket* key) {	// change keycode to ASCII then modify the ASCII based on UI8 mod
+	UI8 tmp=keycodeToASCII(key->keycode);
+	if (isShift(key->mod)==1) {
+		if (isalpha(tmp)&&tmp>90)	// uppercase if character is lowercase
+			return uppercase_char(tmp);
+		else if (tmp>=48&&tmp<=57)	// alternative chars if character is number
+			;
+		else				// default case
+			;
+	}
+	return tmp;
 }

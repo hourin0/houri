@@ -45,15 +45,15 @@ UI0 SSPrompt(U0) {
 
 UI32 ssatori_entry() {
 	SSOnce();
-	UI8 chget;
-	UI8 hexstr[10]="00";
+	keypacket key;
+	UI8 hexstr[10];
 	SSPrompt();
 	newline();
 	const oldCursor=cursor;
 	while (1) {
-		chget=in_byte(KBINPORT);
+		getkey(&key);
 		putstr("  Character you type from keyboard will be here: \0");
-		putchar_attr(keycodeToASCII(chget),GREEN,DEF_BG);
+		putchar_attr(keypacketToASCII(&key),RED,DEF_BG);
 		cursor=oldCursor;
 	}
 	return 0xFF;
