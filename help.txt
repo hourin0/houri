@@ -8,10 +8,10 @@ As you can see, the keys change to uppercase.
 However, there's a problem:
 	If you, for example, use isShift() in somewhere, like SSatori, you may notice
    that the Shift flag doesn't reset. I don't know if this is a isShift() fault, or my fault
-   when printing. I left the broken thing in comments in ssatori/ssatori.c
+   when printing. I was so exicited I totally forgor how did I write the codes.
 
 Anyhow, here's my request:
-	- Find out whose fault the problem I mentioned above is.
+	- Investigate the problem mentioned above.
 	- Implement the rest of printable keys in include/system/keyboard.h (macros) and
    include/system/keyboard.c (keycodeToASCII(), converting). I only plan on implementing the
    main part of the keyboard, and I have implemented the alphabet characters. Your job is only to
