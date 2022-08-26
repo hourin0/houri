@@ -8,10 +8,9 @@ Required dependency: gcc and ld for i686-elf, make are required for building the
 HouriOS should work with any virtual machines, however I have only tested it on QEMU.
 ### Building kernel
 ```
-make hourios
+make houri
 ```
 ### Building ISO with GRUB
 ```
-make grub-iso
+make iso-grub
 ```
-You can call `make grub-iso` directly to build houriclib, hourios and iso. Sometimes you might need `clean`
