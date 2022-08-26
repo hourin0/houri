@@ -45,6 +45,7 @@ UI0 SSOnce(U0) {
 	putstr_attr("\n\nSSatori Hello World!\n",MAGENTA,YELLOW);
 	putstr("Novice user press C-h for a list of built-in commands\n");
 	putstr("Press C-m for a list of defined key shortcuts\n");
+	putstr("M-F4 to exit\n");
 }
 
 UI0 SSPrompt(U0) {
@@ -66,6 +67,9 @@ UI32 ssatori_entry() {
 		if (isCtrl(key.mod)==1)
 			if (keycodeToASCII(key.keycode)=='m')
 				SSMenu();
+		if (isMeta(key.mod)==1)
+			if (key.keycode==KEY_F4)
+				return -1;
 		cursor=oldCursor;
 	}
 	return 0xFF;

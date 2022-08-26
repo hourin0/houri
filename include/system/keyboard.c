@@ -75,8 +75,12 @@ UI0 getkey(keypacket* key) {	// get keypacket from keyboard and perform modifier
 			key->mod&=~(1<<0); break;
 		case KEY_LCTRL:
 			key->mod|=1<<6; break;
+		case KEY_LCTRL+0x80:
+			key->mod&=~(1<<6); break;
 		case KEY_LMETA:
 			key->mod|=1<<5; break;
+		case KEY_LMETA+0x80:
+			key->mod&=~(1<<5); break;
 		// TODO: RCTRL and LMETA
 		default:
 			break;
@@ -96,7 +100,7 @@ UI8 isMeta(const UI8 mod) {
 	return ((mod&(1<<2))||(mod&(1<<5)));
 }
 
-UI8 isSuper(const UI8 mod) { // NOTE: i didn't implemented Super key yet
+UI8 isSuper(const UI8 mod) { // NOTE: i haven't implemented Super key yet
 	return ((mod&(1<<3))||(mod&(1<<4)));
 }
 
@@ -110,5 +114,7 @@ UI8 keypacketToASCII(const keypacket* key) {	// change keycode to ASCII then mod
 		else				// default case
 			;
 	}
+	if (isMeta(key->mod)||isCtrl(key->mod)||isSuper(key->mod))
+		return 0x00; //non-printable
 	return tmp;
 }

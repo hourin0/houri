@@ -1,6 +1,21 @@
 #pragma once
 #include <typedefs.h>
 
+#define KEY_SPECIAL 0x20
+
+#define KEY_F1 0x3B
+#define KEY_F2 0x3C
+#define KEY_F3 0x3D
+#define KEY_F4 0x3E
+#define KEY_F5 0x3F
+#define KEY_F6 0x40
+#define KEY_F7 0x41
+#define KEY_F8 0x42
+#define KEY_F9 0x43
+#define KEY_F10 0x44
+#define KEY_F11 0x45
+#define KEY_F12 0x46
+
 #define KEY_1 0x02
 #define KEY_2 0x03
 #define KEY_3 0x04
@@ -61,6 +76,7 @@
 struct keypacket {
 	UI8 keycode;
 	UI8 mod;
+	// not planning to support Caps Lock and other toggle keys
 /*
 	UI8 mod explaination:
 	byte:	0 0 0 0 0 0 0 0
