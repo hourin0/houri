@@ -27,15 +27,25 @@ static UI16 CurY() {	// TODO: does it work ?
 UI0 SSOnce(U0);
 UI0 SSPrompt(U0);
 UI0 SSScroll(U0);
+UI0 SSMenu(U0);
 UI8* SSGetHost(U0);
 UI8* SSGetString(U0);
 UI32 SSCheckCommand(const UI8* cmd);
+
+UI0 SSMenu(U0) {
+	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
+	newline();
+	MENUENTRY("C-m");
+	putstr(": Prints this menu");
+	newline();
+}
 
 UI0 SSOnce(U0) {
 	putstr_attr("OK\n",GREEN,DEF_BG);
 	putstr_attr("\n\nSSatori Hello World!\n",MAGENTA,YELLOW);
 	putstr("Novice user press C-h for a list of built-in commands\n");
 	putstr("Press C-m for a list of defined key shortcuts\n");
+	putstr("M-F4 to exit\n");
 }
 
 UI0 SSPrompt(U0) {
@@ -45,15 +55,21 @@ UI0 SSPrompt(U0) {
 
 UI32 ssatori_entry() {
 	SSOnce();
-	UI8 chget;
-	UI8 hexstr[10]="00";
+	keypacket key;
+	UI8 hexstr[10];
 	SSPrompt();
 	newline();
 	const oldCursor=cursor;
 	while (1) {
-		chget=in_byte(KBINPORT);
+		getkey(&key);
 		putstr("  Character you type from keyboard will be here: \0");
-		putchar_attr(keycodeToASCII(chget),GREEN,DEF_BG);
+		putchar_attr(keypacketToASCII(&key),RED,DEF_BG);
+		if (isCtrl(key.mod)==1)
+			if (keycodeToASCII(key.keycode)=='m')
+				SSMenu();
+		if (isMeta(key.mod)==1)
+			if (key.keycode==KEY_F4)
+				return -1;
 		cursor=oldCursor;
 	}
 	return 0xFF;

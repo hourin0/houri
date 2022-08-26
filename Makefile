@@ -1,6 +1,10 @@
 #view the conf.mk file for configuration
 include conf.mk
 
+build: iso-grub houri
+	mkdir -p build/
+	cp -f houri hourios.iso build/
+
 iso-grub: houri #copy new kernel binary to isodir/ to build ISO
 	mkdir -p isodir/boot/grub
 	cp -f houri isodir/boot
@@ -13,11 +17,11 @@ houri: boot.o kernel.o ssatori.o rsod.o libs #kernel binary
 boot.o: #boot header
 	${AS} ${AFLAGS} boot/boot.${ASMEXT} -o boot.o
 kernel.o: #compiles kernel
-	${CC} -c kernel/kernel.c -o kernel.o ${CFLAGS}
+	${CC} -c ${KERNELPATH}/kernel.c -o kernel.o ${CFLAGS}
 ssatori.o: #compiles SSatori (emergency built-in shell)
-	${CC} -c ssatori/ssatori.c -o ssatori.o ${CFLAGS}
+	${CC} -c ${SSATORIPATH}/ssatori.c -o ssatori.o ${CFLAGS}
 rsod.o: #Red Screen of Death Fatal Event handler
-	${CC} -c kernel/rsod.c -o rsod.o ${CFLAGS}
+	${CC} -c ${KERNELPATH}/rsod.c -o rsod.o ${CFLAGS}
 
 libs: houric.o lowlevel.o system.o
 	mkdir -p ./lib
@@ -44,6 +48,8 @@ clean-obj:
 	rm -f ${LOWLEVELPATH}/*.o
 	rm -f ${HOURICPATH}/*.o
 	rm -f *.o
+clean-builds:
+	rm -f build/*
 clean: clean-bin clean-libs clean-obj
 
 backup: #backup whole directory

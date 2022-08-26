@@ -1,6 +1,21 @@
 #pragma once
 #include <typedefs.h>
 
+#define KEY_SPECIAL 0x20
+
+#define KEY_F1 0x3B
+#define KEY_F2 0x3C
+#define KEY_F3 0x3D
+#define KEY_F4 0x3E
+#define KEY_F5 0x3F
+#define KEY_F6 0x40
+#define KEY_F7 0x41
+#define KEY_F8 0x42
+#define KEY_F9 0x43
+#define KEY_F10 0x44
+#define KEY_F11 0x45
+#define KEY_F12 0x46
+
 #define KEY_1 0x02
 #define KEY_2 0x03
 #define KEY_3 0x04
@@ -46,26 +61,42 @@
 #define KEY_RETURN 0x1C
 #define KEY_ESC 0x01
 
+#define KEY_LSHIFT 0x2A
+#define KEY_RSHIFT 0x36
+
+#define KEY_LMETA 0x38
+// E0 32 -> right meta
+
+#define KEY_LCTRL 0x1D
+// E0 1D -> right ctrl
+
 #define KBINPORT 0x60
 #define KBOUTPORT 0x64
 
-typedef struct {
+struct keypacket {
 	UI8 keycode;
 	UI8 mod;
+	// not planning to support Caps Lock and other toggle keys
 /*
 	UI8 mod explaination:
 	byte:	0 0 0 0 0 0 0 0
-	number:	8 7 6 5 4 3 2 1
-		bit 1: right shift
-		bit 8: left shift
-		bit 2: right control
-		bit 7: left control
-		bit 3: right meta
-		bit 6: left meta
-		bit 4: right super
-		bit 5: left super
+	number:	7 6 5 4 3 2 1 0
+		bit 0: right shift
+		bit 7: left shift
+		bit 1: right control
+		bit 6: left control
+		bit 2: right meta
+		bit 5: left meta
+		bit 3: right super
+		bit 4: left super
 */
-} keypacket ;
+} __attribute__((packed)) ;
+typedef struct keypacket keypacket;
 
+UI0 getkey(keypacket* key);
 UI8 keycodeToASCII(const UI8 key);
-
+UI8 isShift(const UI8 mod);
+UI8 isCtrl(const UI8 mod);
+UI8 isMeta(const UI8 mod);
+UI8 isSuper(const UI8 mod);
+UI8 keypacketToASCII(const keypacket* key);
