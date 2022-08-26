@@ -37,4 +37,5 @@ UI0 rsod_main() {
 			LINE_SIZE-3,24,
 			DEF_BG,DEF_FG);
 	}
+	while (1);
 }

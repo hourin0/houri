@@ -9,6 +9,7 @@
 #include <houric/houristr.h>
 #include <houric/hourilib.h>
 
+
 U0 kernel_entry() {
 	init_vga(DEF_BG);
 	putstr_attr("Welcome to HouriOS - A free (libre) and open source\
@@ -18,5 +19,5 @@ U0 kernel_entry() {
 	putstr("\tLoading SSatori: ");
 	ssatori_entry(); //calls SSatori shell
 	putstr_attr("\n\nFATAL: SSatori exitted\n ",RED,DEF_BG);
-	sleep(0xAFFFFFF*10);
+	sleep(0xAFFFF*3);
 }
