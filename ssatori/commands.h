@@ -2,12 +2,20 @@
 static const UI8* cmdlist[CMDNUM] = {
 	"ping",
 	"clear",
-	"help"
+	"help",
+	"logout",
+	"chuser",
+	"chhost",
+	"passwd"
 };
 static const UI8* cmdhelp[CMDNUM] = {
 	"Response with pong",
 	"Clear screen",
-	"Print this help menu"
+	"Print this help menu",
+	"Logout",
+	"Change username",
+	"Change hostname",
+	"Change password"
 };
 
 
@@ -42,6 +50,20 @@ UI32 SSCheckCommand() {
 		SSGetStr(test);
 		putstr(test);
 		newline();
+	}
+
+	else if (!strcmp(cmd,"logout")) SSLogout();
+	else if (!strcmp(cmd,"chuser")) {
+		putstr("Enter new username: ");
+		SSGetStr(houriuser.username);
+	}
+	else if (!strcmp(cmd,"chhost")) {
+		putstr("Enter new hostname: ");
+		SSGetStr(houriuser.hostname);
+	}
+	else if (!strcmp(cmd,"passwd")) {
+		putstr("Enter new password: ");
+		SSGetStr(houriuser.passwd);
 	}
 
 	else
