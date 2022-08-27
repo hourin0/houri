@@ -41,14 +41,12 @@ UI32 SSLogin(UI8 firstTime) {
 			SSGetStr(pass);
 			if (strcmp(pass,houriuser.passwd)!=0) {
 				putstr("\nWrong password. Try again.\n");
+				sleep(0xFFFFF);
 				continue;
 			}
 			else if (strcmp(pass,houriuser.passwd)==0)
 				break;
 		}
-		sleep(0xFFFF);
-		SSClear();
-		SSPrompt();
 		return ;
 	}
 }
@@ -59,6 +57,9 @@ UI0 SSLogout() {
 	sleep(0xAAFFF);
 	SSClear();
 	SSLogin(0);
+	sleep(0xFFFF);
+	SSClear();
+	putstr_xy_attr("Press C-l to continue",20,10,GREEN,DEF_BG);
 }
 #endif
 
@@ -83,6 +84,7 @@ UI0 SSPrompt() {
 	putstr_attr(houriuser.username,GREEN,DEF_BG);
 	putchar('@');
 	putstr_attr(houriuser.hostname,MAGENTA,DEF_BG);
+	putstr("> ");
 #else
 	putstr_attr("@localhost> ",MAGENTA,DEF_BG);
 #endif
