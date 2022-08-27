@@ -59,7 +59,6 @@ UI0 SSLogout() {
 	SSLogin(0);
 	sleep(0xFFFF);
 	SSClear();
-	putstr_xy_attr("Press C-l to continue",20,10,GREEN,DEF_BG);
 }
 #endif
 
