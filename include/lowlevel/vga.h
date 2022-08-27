@@ -3,6 +3,7 @@
 #define VGA_ADDRESS 0xB8000
 #define BUFFER_SIZE 2200
 #define LINE_SIZE 80
+#define LINE_NO BUFFER_SIZE/LINE_SIZE
 UI16 vga_entry(UI8 ch,UI8 fg,UI8 bg);
 U0 clear_vga_buffer(UI8 color);
 U0 init_vga(UI8	color);
