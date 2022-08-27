@@ -1,25 +1,5 @@
-#ifdef PASSWD
-UI32 SSLogin(UI8 firstTime) {
-	newline();
-	if (firstTime==1) {
-		putstr("Type your username: ");
-		SSGetStr(houriuser.username);
-		sleep(0xAAFF);
-		putstr("Type your password: ");
-		SSGetStr(houriuser.passwd);
-		strcpy(houriuser.hostname,"localhost");
-	}
-	if (firstTime==0) {
-
-	}
-}
-UI0 SSLogout() {
-	
-}
-#endif
-
 UI0 SSGetStr(UI8* str) {
-	keypacket key;
+	static keypacket key;
 	UI32 i=0;
 	UI8 ch;
 	while (1) {
@@ -37,7 +17,39 @@ UI0 SSGetStr(UI8* str) {
 		}
 		sleep(0xAAAA);
 	}
+	return ;
 }
+
+#ifdef PASSWD
+UI32 SSLogin(UI8 firstTime) {
+	newline();
+	if (firstTime==1) {
+		putstr("Type your username: ");
+		SSGetStr(houriuser.username);
+		sleep(0xAAFF);
+		putstr("Type your password: ");
+		SSGetStr(houriuser.passwd);
+		strcpy(houriuser.hostname,"localhost");
+	}
+	if (firstTime==0) {
+		UI8 pass[PSWDLENGTH];
+		while (1) {
+			putstr("Enter password for ");
+			putstr(houriuser.username);
+			putchar(':');
+			SSGetStr(pass);
+			if (strcmp(pass,houriuser.passwd)!=0) {
+				putstr("\nWrong password. Try again.\n");
+			}
+			else
+				break;
+		}
+	}
+}
+UI0 SSLogout() {
+	putstr("Logout\n");
+}
+#endif
 
 UI0 SSMenu(U0) {
 	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
