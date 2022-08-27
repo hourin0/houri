@@ -39,7 +39,15 @@ UI8* strcat(UI8* dest,const UI8* src) {
 	return dest;
 }
 UI8 strcmp(const UI8* str1,const UI8* str2) {
-
+	if (strlen(str1)!=strlen(str2))
+		return 1;
+	else {
+		UI32 i;
+		for (i=0;i<strlen(str1);i++)
+			if (str1[i]!=str2[i])
+				return 1;
+	}
+	return 0;
 }
 UI0 strrev(UI8* string) {
 	UI32 len=strlen(string);
