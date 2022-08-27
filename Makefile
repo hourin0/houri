@@ -19,7 +19,7 @@ boot.o: #boot header
 kernel.o: #compiles kernel
 	${CC} -c ${KERNELPATH}/kernel.c -o kernel.o ${CFLAGS}
 ssatori.o: #compiles SSatori (emergency built-in shell)
-	${CC} -c ${SSATORIPATH}/ssatori.c -o ssatori.o ${CFLAGS}
+	${CC} -c ${SSATORIPATH}/ssatori.c -o ssatori.o ${CFLAGS} -D${FANCY}
 rsod.o: #Red Screen of Death Fatal Event handler
 	${CC} -c ${KERNELPATH}/rsod.c -o rsod.o ${CFLAGS}
 

@@ -74,6 +74,15 @@ UI32 SSCheckCommand() {
 	if (strcmp(cmd,"ping")==0) {
 		putstr("pong\n");
 	}
+	else if (strcmp(cmd,"clear")==0) {
+	#ifdef FANCY
+		init_vga(BLUE);
+		sleep(0xAAA);
+		init_vga(YELLOW);
+		sleep(0xAAA);
+	#endif
+		init_vga(DEF_BG);
+	}
 	else
 		SSCommandNotFound();
 

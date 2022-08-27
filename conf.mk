@@ -27,3 +27,6 @@ HOURICPATH:=include/houric
 
 SYSTEMPATH:=include/system
 FSPATH:=${SYSTEM}/fs
+
+# various other defines for C
+FANCY?=FANCY	# various aesthetics for SSatori/Kernel ?
