@@ -15,6 +15,25 @@ I32 SSControl(const keypacket* key) {
 			newline();
 			SSClear();
 			SSPrompt();
+			for (UI32 h=0;cmd[h]!=0x00;h++)
+				putchar(cmd[h]);
+		}
+		else if (chget=='x') {
+		#ifdef PASSWD
+			SSLogout();
+		#else
+			putstr_attr("\nUser functions not enabled in this HouriOS install.\n",RED,DEF_BG);
+			SSPrompt();
+		#endif
+		}
+		else if (chget=='t') {
+			UI8 tmpstr[100];
+			putstr("\nType a string: ");
+			SSGetStr(tmpstr,key);
+			putstr("You typed: "); 
+			putstr(tmpstr);
+			newline();
+			SSPrompt();
 		}
 	}
 
