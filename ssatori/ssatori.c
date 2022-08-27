@@ -27,11 +27,17 @@ static UI16 CurY() {	// TODO: does it work ?
 	return n;
 }
 
+
 UI0 SSPrompt(U0);
 UI0 SSScroll(U0);
 UI0 SSMenu(U0);
 UI8* SSGetHost(U0);
+UI0 SSCommandNotFound();
 UI32 SSCheckCommand();
+I32 SSControl(const keypacket* key);
+
+#include "commands.h"
+#include "controls.h"
 
 UI0 SSMenu(U0) {
 	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
@@ -53,39 +59,8 @@ UI0 SSPrompt(U0) {
 	putstr_attr("@localhost> ",MAGENTA,DEF_BG);
 }
 
-I32 SSControl(const keypacket* key) {
-	if (isCtrl(key->mod)==1)
-		if (keycodeToASCII(key->keycode)=='m')
-			SSMenu();
-	if (isMeta(key->mod)==1)
-		if (key->keycode==KEY_F4)
-			return -1;
-}
-
-UI0 SSCommandNotFound() {
-	putstr_attr("SSatori: ",RED,DEF_BG);
-	putstr_attr(cmd,MAGENTA,DEF_BG);
-	putstr_attr(": Command not found\n",RED,DEF_BG);
-}
-
-UI32 SSCheckCommand() {
-	if (cmd[0]==0x00)
-		return 0;
-	if (strcmp(cmd,"ping")==0) {
-		putstr("pong\n");
-	}
-	else if (strcmp(cmd,"clear")==0) {
-	#ifdef FANCY
-		init_vga(BLUE);
-		sleep(0xAAA);
-		init_vga(YELLOW);
-		sleep(0xAAA);
-	#endif
-		init_vga(DEF_BG);
-	}
-	else
-		SSCommandNotFound();
-
+UI0 SSScroll() {
+	// TODO: scroll
 }
 
 UI32 ssatori_entry() {
