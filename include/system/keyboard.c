@@ -55,6 +55,8 @@ UI8 keycodeToASCII(const UI8 key) {	// convert key scancodes to ASCII (table 1)
 			return 'y'; break;
 		case KEY_Z:
 			return 'z'; break;
+		case KEY_RETURN:
+			return '\n'; break;
 		default:
 			return 0x00; break;
 

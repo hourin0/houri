@@ -39,18 +39,12 @@ U0 putchar_attr(UI8 ch,const UI8 fg,const UI8 bg) {
 		cursor++;
 	}
 }
-U0 putchar(UI8 ch) {
-	putchar_attr(ch,DEF_FG,DEF_BG);
-}
 
 U0 putchar_xy_attr(UI8 ch,UI16 x,UI16 y,const UI8 fg,const UI8 bg) {
 	UI16 tmpcursor=cursor;
 	goto_xy(x,y);
 	putchar_attr(ch,fg,bg);
 	cursor=tmpcursor;
-}
-U0 putchar_xy(UI8 ch,UI16 x,UI16 y) {
-	putchar_xy_attr(ch,x,y,DEF_FG,DEF_BG);
 }
 
 UI32 putstr_attr(UI8* str,const UI8 fg,const UI8 bg) {
@@ -59,9 +53,6 @@ UI32 putstr_attr(UI8* str,const UI8 fg,const UI8 bg) {
 		putchar_attr(str[i],fg,bg);
 	return i;
 }
-UI32 putstr(UI8* str) {
-	return putstr_attr(str,DEF_FG,DEF_BG);
-}
 
 UI32 putstr_xy_attr(UI8* str,UI16 x,UI16 y,const UI8 fg,const UI8 bg) {
 	UI16 tmpcursor=cursor;
@@ -69,8 +60,5 @@ UI32 putstr_xy_attr(UI8* str,UI16 x,UI16 y,const UI8 fg,const UI8 bg) {
 	UI32 returnvalue=putstr_attr(str,fg,bg);
 	cursor=tmpcursor;
 	return returnvalue;
-}
-UI32 putstr_xy(UI8* str,UI16 x,UI16 y) {
-	return putstr_xy_attr(str,x,y,DEF_FG,DEF_BG);
 }
 

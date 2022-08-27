@@ -14,6 +14,9 @@
 #define newline() putchar('\n');
 #define CurX() linechar
 
+static UI8 cmd[255];
+static UI8 chget;
+
 static UI16 CurY() {	// TODO: does it work ?
 	UI32 tmp=cursor;
 	UI32 n=0;
@@ -53,24 +56,25 @@ UI0 SSPrompt(U0) {
 	putstr_attr("@localhost> ",MAGENTA,DEF_BG);
 }
 
+I32 SSControl(const keypacket* key) {
+	if (isCtrl(key->mod)==1)
+		if (keycodeToASCII(key->keycode)=='m')
+			SSMenu();
+	if (isMeta(key->mod)==1)
+		if (key->keycode==KEY_F4)
+			return -1;
+}
+
 UI32 ssatori_entry() {
 	SSOnce();
 	keypacket key;
 	UI8 hexstr[10];
 	SSPrompt();
 	newline();
-	const oldCursor=cursor;
-	while (1) {
+	while (SSControl(&key)!=-1) {
 		getkey(&key);
-		putstr("  Character you type from keyboard will be here: \0");
-		putchar_attr(keypacketToASCII(&key),RED,DEF_BG);
-		if (isCtrl(key.mod)==1)
-			if (keycodeToASCII(key.keycode)=='m')
-				SSMenu();
-		if (isMeta(key.mod)==1)
-			if (key.keycode==KEY_F4)
-				return -1;
-		cursor=oldCursor;
+		if (keypacketToASCII(&key)!=0x00)
+			putchar_attr(keypacketToASCII(&key),RED,DEF_BG);
 	}
 	return 0xFF;
 }

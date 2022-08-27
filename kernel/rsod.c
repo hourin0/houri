@@ -11,9 +11,9 @@
 #include <houric/houricio.h>
 #include <houric/houristr.h>
 
+#define DEF_BG RED
+#define DEF_FG YELLOW
 UI0 rsod_main() {
-	#define DEF_BG RED
-	#define DEF_FG YELLOW
 	init_screen(DEF_BG);
 	for (UI16 i=0;i<LINE_SIZE;i++)
 		putchar_attr(' ',DEF_FG,DEF_FG);
@@ -26,7 +26,7 @@ UI0 rsod_main() {
 	for (UI16 i=0;i<LINE_SIZE;i++)
 		putchar_attr(' ',DEF_FG,DEF_FG);
 	srand(69);
-	while (1) {
+	while (1) {	// puts 3 random ASCII characters (this func looks dumb)
 		putchar_xy_attr(rand()%(127-35)+35,
 			LINE_SIZE-1,24,
 			DEF_BG,DEF_FG);
