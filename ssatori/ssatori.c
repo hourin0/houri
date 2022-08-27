@@ -17,6 +17,21 @@
 static UI8 cmd[255];
 static UI8 chget;
 
+#ifdef PASSWD	// user functions will be enabled if PASSWD is defined
+#define NAMELENGTH 20	// username and hostname length
+#define PSWDLENGTH 50	// password length
+struct user {
+	UI8 username[NAMELENGTH];	// is this really needed ?
+	UI8 hostname[NAMELENGTH];
+	UI8 passwd[50];
+	#ifdef SHA256SUM	// enable password encryption ?
+		UI8 passwdHash[67];
+	#endif
+} __attribute__((packed));
+typedef struct user user;
+user houriuser;
+#endif
+
 static UI16 CurY() {	// TODO: does it work ?
 	UI32 tmp=cursor;
 	UI32 n=0;
@@ -27,7 +42,9 @@ static UI16 CurY() {	// TODO: does it work ?
 	return n;
 }
 
-
+UI0 SSGetStr(UI8* str);
+UI32 SSLogin(UI8 firstTime);
+UI0 SSLogout();
 UI0 SSPrompt(U0);
 UI0 SSScroll(U0);
 UI0 SSMenu(U0);
@@ -42,39 +59,15 @@ UI0 SSClear();
 #include "commands.h"
 #include "funcs.h"
 #include "controls.h"
-
-UI0 SSMenu(U0) {
-	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
-	newline();
-	MENUENTRY("C-m");
-	putstr(": Prints this menu");
-	newline();
-}
-
-UI0 SSOnce(U0) {
-	putstr_attr("OK\n",GREEN,DEF_BG);
-	putstr_attr("\n\nSSatori Hello World!\n",MAGENTA,YELLOW);
-	putstr("Novice user press C-h for a list of built-in commands\n");
-	putstr("Press C-m for a list of defined key shortcuts\n");
-	putstr("M-F4 to exit\n");
-}
-
-UI0 SSPrompt(U0) {
-	putstr_attr("@localhost> ",MAGENTA,DEF_BG);
-}
-
-UI0 SSScroll() {
-	// TODO: scroll
-}
-
 UI32 ssatori_entry() {
+	SSLogin(1);
 	SSOnce();
 	keypacket key;
 	UI8 hexstr[10];
 	UI32 i=0;
 	newline();
 	SSPrompt();
-	while (SSControl(&key)!=-1) {
+	while (SSControl(&key)!=-1) {	// we can't use SSGetStr() here because have to get ctrl keys
 		getkey(&key);
 		chget=keypacketToASCII(&key);
 		if (chget=='\n') {

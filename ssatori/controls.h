@@ -29,7 +29,7 @@ I32 SSControl(const keypacket* key) {
 		else if (chget=='t') {
 			UI8 tmpstr[100];
 			putstr("\nType a string: ");
-			SSGetStr(tmpstr,key);
+			SSGetStr(tmpstr);
 			putstr("You typed: "); 
 			putstr(tmpstr);
 			newline();

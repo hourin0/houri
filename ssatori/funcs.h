@@ -1,8 +1,13 @@
 #ifdef PASSWD
-UI32 SSLogin(UI8 firstTime,user* u) {
+UI32 SSLogin(UI8 firstTime) {
+	newline();
 	if (firstTime==1) {
 		putstr("Type your username: ");
+		SSGetStr(houriuser.username);
+		sleep(0xAAFF);
 		putstr("Type your password: ");
+		SSGetStr(houriuser.passwd);
+		strcpy(houriuser.hostname,"localhost");
 	}
 	if (firstTime==0) {
 
@@ -13,25 +18,27 @@ UI0 SSLogout() {
 }
 #endif
 
-UI0 SSGetStr(UI8* str,keypacket* key) {
+UI0 SSGetStr(UI8* str) {
+	keypacket key;
 	UI32 i=0;
-	UI8 chget;
+	UI8 ch;
 	while (1) {
-		getkey(key);
-		chget=keypacketToASCII(key);
-		if (chget=='\n') {
+		getkey(&key);
+		ch=keypacketToASCII(&key);
+		if (ch=='\n') {
 			newline();
 			str[i]='\0';
 			break;
 		}
-		else if (chget!=0x00) {
-			str[i]=chget;
+		else if (ch!=0x00) {
+			str[i]=ch;
 			i++;
-			putchar(chget);
+			putchar(ch);
 		}
 		sleep(0xAAAA);
 	}
 }
+
 UI0 SSMenu(U0) {
 	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
 	newline();
@@ -48,8 +55,14 @@ UI0 SSOnce(U0) {
 	putstr("M-F4 to exit\n");
 }
 
-UI0 SSPrompt(U0) {
+UI0 SSPrompt() {
+#ifdef PASSWD
+	putstr_attr(houriuser.username,GREEN,DEF_BG);
+	putchar('@');
+	putstr_attr(houriuser.hostname,MAGENTA,DEF_BG);
+#else
 	putstr_attr("@localhost> ",MAGENTA,DEF_BG);
+#endif
 }
 
 UI0 SSScroll() {

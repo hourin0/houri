@@ -30,3 +30,5 @@ FSPATH:=${SYSTEM}/fs
 
 # various other defines for C
 FANCY?=FANCY	# various aesthetics for SSatori/Kernel ?
+PASSWD?=PASSWD	# will SSatori use password login ?
+ENCRYPT?=NONE	# SSatori password encryption: SHA256SUM, other values are treated as NONE
