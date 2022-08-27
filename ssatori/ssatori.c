@@ -50,7 +50,6 @@ UI0 SSOnce(U0) {
 }
 
 UI0 SSPrompt(U0) {
-	newline();
 	putstr_attr("@localhost> ",MAGENTA,DEF_BG);
 }
 
@@ -66,10 +65,12 @@ I32 SSControl(const keypacket* key) {
 UI0 SSCommandNotFound() {
 	putstr_attr("SSatori: ",RED,DEF_BG);
 	putstr_attr(cmd,MAGENTA,DEF_BG);
-	putstr_attr(": Command not found",RED,DEF_BG);
+	putstr_attr(": Command not found\n",RED,DEF_BG);
 }
 
 UI32 SSCheckCommand() {
+	if (cmd[0]==0x00)
+		return 0;
 	if (strcmp(cmd,"ping")==0) {
 		putstr("pong\n");
 	}
