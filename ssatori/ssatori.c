@@ -27,13 +27,11 @@ static UI16 CurY() {	// TODO: does it work ?
 	return n;
 }
 
-UI0 SSOnce(U0);
 UI0 SSPrompt(U0);
 UI0 SSScroll(U0);
 UI0 SSMenu(U0);
 UI8* SSGetHost(U0);
-UI8* SSGetString(U0);
-UI32 SSCheckCommand(const UI8* cmd);
+UI32 SSCheckCommand();
 
 UI0 SSMenu(U0) {
 	#define MENUENTRY(x) putstr_attr(x,RED,YELLOW)
@@ -65,16 +63,45 @@ I32 SSControl(const keypacket* key) {
 			return -1;
 }
 
+UI0 SSCommandNotFound() {
+	putstr_attr("SSatori: ",RED,DEF_BG);
+	putstr_attr(cmd,MAGENTA,DEF_BG);
+	putstr_attr(": Command not found",RED,DEF_BG);
+}
+
+UI32 SSCheckCommand() {
+	if (strcmp(cmd,"ping")==0) {
+		putstr("pong\n");
+	}
+	else
+		SSCommandNotFound();
+
+}
+
 UI32 ssatori_entry() {
 	SSOnce();
 	keypacket key;
 	UI8 hexstr[10];
-	SSPrompt();
+	UI32 i=0;
 	newline();
+	SSPrompt();
 	while (SSControl(&key)!=-1) {
 		getkey(&key);
-		if (keypacketToASCII(&key)!=0x00)
-			putchar_attr(keypacketToASCII(&key),RED,DEF_BG);
+		chget=keypacketToASCII(&key);
+		if (chget=='\n') {
+			newline();
+			SSCheckCommand();
+			for (UI32 k=0;k<=255;k++)	// clear cmd string
+				cmd[k]=0x00;
+			SSPrompt();
+			i=0;	// reset cmd string index
+		}
+		else if (chget!=0x00) {
+			cmd[i]=chget;
+			i++;
+			putchar(chget);
+		}
+		sleep(0xAAAA);
 	}
 	return 0xFF;
 }
