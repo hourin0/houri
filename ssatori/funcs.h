@@ -37,17 +37,28 @@ UI32 SSLogin(UI8 firstTime) {
 			putstr("Enter password for ");
 			putstr(houriuser.username);
 			putchar(':');
+			putchar(' ');
 			SSGetStr(pass);
 			if (strcmp(pass,houriuser.passwd)!=0) {
 				putstr("\nWrong password. Try again.\n");
+				continue;
 			}
-			else
+			else if (strcmp(pass,houriuser.passwd)==0)
 				break;
 		}
+		sleep(0xFFFF);
+		SSClear();
+		SSPrompt();
+		return ;
 	}
 }
+
 UI0 SSLogout() {
+	newline();
 	putstr("Logout\n");
+	sleep(0xAAFFF);
+	SSClear();
+	SSLogin(0);
 }
 #endif
 

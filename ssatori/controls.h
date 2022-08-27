@@ -1,6 +1,7 @@
 #pragma once
 
 I32 SSControl(const keypacket* key) {
+	UI8 tmpstr[255];
 	UI8 chget=keycodeToASCII(key->keycode);
 	if (isCtrl(key->mod)==1) {
 		if (chget=='m')	// print control menu
@@ -27,7 +28,6 @@ I32 SSControl(const keypacket* key) {
 		#endif
 		}
 		else if (chget=='t') {
-			UI8 tmpstr[100];
 			putstr("\nType a string: ");
 			SSGetStr(tmpstr);
 			putstr("You typed: "); 

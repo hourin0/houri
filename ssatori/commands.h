@@ -36,6 +36,13 @@ UI32 SSCheckCommand() {
 	else if (!strcmp(cmd,"scroll")) {
 		SSScroll();
 	}
+	
+	else if (!strcmp(cmd,"testinput")) {
+		UI8 test[255];
+		SSGetStr(test);
+		putstr(test);
+		newline();
+	}
 
 	else
 		SSCommandNotFound();

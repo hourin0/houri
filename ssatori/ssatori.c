@@ -60,7 +60,9 @@ UI0 SSClear();
 #include "funcs.h"
 #include "controls.h"
 UI32 ssatori_entry() {
+#ifdef PASSWD
 	SSLogin(1);
+#endif
 	SSOnce();
 	keypacket key;
 	UI8 hexstr[10];
