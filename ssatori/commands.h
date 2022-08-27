@@ -1,3 +1,14 @@
+#define CMDNUM 3
+static const UI8* cmdlist[CMDNUM] = {
+	"ping",
+	"clear",
+	"help"
+};
+static const UI8* cmdhelp[CMDNUM] = {
+	"Response with pong",
+	"Clear screen",
+	"Print this help menu"
+};
 
 
 UI0 SSCommandNotFound() {
@@ -15,13 +26,11 @@ UI32 SSCheckCommand() {
 	}
 
 	else if (!strcmp(cmd,"clear")) {
-	#ifdef FANCY
-		init_vga(BLUE);
-		sleep(0xAAA);
-		init_vga(YELLOW);
-		sleep(0xAAA);
-	#endif
-		init_vga(DEF_BG);
+		SSClear();
+	}
+
+	else if (!strcmp(cmd,"help")) {
+		SSHelp();
 	}
 
 	else if (!strcmp(cmd,"scroll")) {

@@ -36,7 +36,11 @@ UI0 SSCommandNotFound();
 UI32 SSCheckCommand();
 I32 SSControl(const keypacket* key);
 
+UI0 SSHelp();
+UI0 SSClear();
+
 #include "commands.h"
+#include "funcs.h"
 #include "controls.h"
 
 UI0 SSMenu(U0) {
